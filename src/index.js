@@ -1,32 +1,26 @@
-const form = document.querySelector("form");
+import Form from "./components/Form/Form";
+import Header from "./components/Header";
 
-const inputs = document.querySelectorAll("input");
+const root = document.getElementById("root");
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+const App = () => {
+  const state = {
+    title: "My Form",
+    fields: ["email", "password"],
+    button: {
+      type: "submit",
+      txt: "Submit",
+    },
+  };
 
-  console.log(event.target.elements[0].value);
-  console.log(event.target.elements[1].value);
-});
+  return `
+    ${Header(state)}
+    ${Form(state)}
+  `;
+};
 
-inputs[0].addEventListener("blur", (event) => {
-  const input = event.target;
+function render() {
+  root.innerHTML = App();
+}
 
-  if (!input.value.includes("@")) {
-    input.classList.add("border-rose-500");
-  }
-});
-
-inputs[0].addEventListener("focus", (event) => {
-  const input = event.target;
-
-  input.classList.remove("border-rose-500");
-});
-
-inputs[1].addEventListener("blur", (event) => {
-  const input = event.target;
-
-  if (input.value.length < 6) {
-    input.classList.add("border-rose-500");
-  }
-});
+render();
